@@ -48,23 +48,21 @@ public class HttpServer {
                     handleGetRequest(req, out);
                     break;
                 case "POST":
-                    // тут хз можно просто показывать html c содержимым тела запросы
+                    handlePostRequest(req, out);
                     break;
                 case "OPTIONS":
                     handleOptionsRequest(out);
                     break;
                 default:
-//                    HttpResponse resp = new HttpResponse(405, "Method Not Allowed","<html>\n" +
-//                            "<head><title>405 Method Not Allowed</title></head>\n" +
-//                            "<body>\n" +
-//                            "<h1>405 Method Not Allowed</h1>\n" +
-//                            "<p>The request method is not allowed for the specified resource.</p>\n" +
-//                            "</body>\n" +
-//                            "</html>");
-//                    out.write(resp.getResponse().getBytes());
-//                    out.flush();
-//                    out.close();
-//                    cs.close();
+                    HttpResponse resp = new HttpResponse(405, "Method Not Allowed","<html>\n" +
+                            "<head><title>405 Method Not Allowed</title></head>\n" +
+                            "<body>\n" +
+                            "<h1>405 Method Not Allowed</h1>\n" +
+                            "<p>The request method is not allowed for the specified resource.</p>\n" +
+                            "</body>\n" +
+                            "</html>");
+                    out.write(resp.getResponse().getBytes());
+                    out.flush();
                     break;
             }
 
