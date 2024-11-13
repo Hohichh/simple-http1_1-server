@@ -10,7 +10,7 @@ public class HttpServer{
 
     public static void main(String[] args) {
         try(ServerSocket server = new ServerSocket(
-                8080, 50, InetAddress.getByName("localhost"));) {
+                8080, 50, InetAddress.getByName("localhost"))) {
             //listening
             while(true){
                 try{
@@ -33,7 +33,7 @@ public class HttpServer{
     private static void handleClient(Socket cs){
         try (cs;
             InputStream in = cs.getInputStream();
-            OutputStream out = cs.getOutputStream();) {
+            OutputStream out = cs.getOutputStream()) {
             // client request handling
             System.out.println("Handling client: " + cs.getInetAddress());
 
@@ -45,13 +45,13 @@ public class HttpServer{
 
             switch(req.getMethod()){
                 case "GET":
-                    handleGetRequest(req, cs, in, out);
+                    handleGetRequest(req, out);
                     break;
                 case "POST":
                     // тут хз можно просто показывать html c содержимым тела запросы
                     break;
                 case "OPTIONS":
-                    //опции
+                    handleOptionsRequest(out);
                     break;
                 default:
 //                    HttpResponse resp = new HttpResponse(405, "Method Not Allowed","<html>\n" +
@@ -73,8 +73,8 @@ public class HttpServer{
         }
     }
 
-    private static void handleGetRequest(HttpRequest req, Socket cs,
-                                         InputStream in, OutputStream out) throws IOException {
+    private static void handleGetRequest(HttpRequest req,
+                                         OutputStream out) throws IOException {
             String uriPath = parseUriToPath(req.getUri());
             File file = new File(CONTENT_PATH + uriPath);
             //файл не найден
@@ -134,16 +134,23 @@ public class HttpServer{
 
     }
 
-    private static void handleOptionsRequest(HttpRequest req, Socket cs,
-                                             InputStream in, OutputStream out){
-        
+    private static void handleOptionsRequest(
+                                             OutputStream out) throws IOException {
+        HttpResponse optionsResponse = new HttpResponse(200, "OK", "");
+        optionsResponse.addHeader("Allow", "GET, POST, OPTIONS");
+        optionsResponse.addHeader("Content-Length", "0");
+
+        out.write(optionsResponse.getResponse().getBytes());
+        out.flush();
     }
 
-    private static String parseUriToPath(String uri){
-        int ind1 = uri.indexOf("http://", 0);
-        int ind2 = uri.indexOf("/", ind1);
-        String subUri = uri.substring(0, ind2);
-        return String.join("\\", uri.replace(subUri, "").split("/"));
+    private static String parseUriToPath(String uri) {
+        int pathStartIndex = uri.indexOf("/", uri.indexOf("://") + 3);
+        if (pathStartIndex == -1) {
+            return "";
+        }
+        String path = uri.substring(pathStartIndex);
+        return path.replace("/", "\\");
     }
 
 }
