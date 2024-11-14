@@ -40,6 +40,11 @@ public class HttpServer {
             byte[] buf = new byte[1024 * 64];
             int bytesRead = in.read(buf);
 
+            if(bytesRead == -1){
+                System.out.println("No data read");
+                return;
+            }
+
             String request = new String(buf, 0, bytesRead);
             HttpRequest req = new HttpRequest(request);
 
@@ -73,6 +78,7 @@ public class HttpServer {
 
     private static void handleGetRequest(HttpRequest req,
                                          OutputStream out) throws IOException {
+        System.out.println("handling GET");
         String uriPath = parseUriToPath(req.getUri());
         File file = new File(CONTENT_PATH + uriPath);
 
@@ -128,6 +134,7 @@ public class HttpServer {
     }
 
     private static void handlePostRequest(HttpRequest req, OutputStream out) throws IOException {
+        System.out.println("handling POST");
         String postedContent = req.getBody();
         System.out.println("Received posted content: " + postedContent);
 
@@ -141,6 +148,7 @@ public class HttpServer {
 
     private static void handleOptionsRequest(
             OutputStream out) throws IOException {
+        System.out.println("handling OPTIONS");
         HttpResponse optionsResponse = new HttpResponse(200, "OK", "");
         optionsResponse.addHeader("Allow", "GET, POST, OPTIONS");
         optionsResponse.addHeader("Content-Length", "0");
@@ -150,12 +158,11 @@ public class HttpServer {
     }
 
     private static String parseUriToPath(String uri) {
-        int pathStartIndex = uri.indexOf("/", uri.indexOf("://") + 3);
-        if (pathStartIndex == -1) {
-            return "";
+        if(uri.startsWith("http://")){
+            int pathStartIndex = uri.indexOf("/", uri.indexOf("://") + 3);
+            return uri.substring(pathStartIndex).replace("/", "\\");
         }
-        String path = uri.substring(pathStartIndex);
-        return path.replace("/", "\\");
+        return uri.replace("/", "\\");
     }
 
     private static String defineContentType(String uriPath){
