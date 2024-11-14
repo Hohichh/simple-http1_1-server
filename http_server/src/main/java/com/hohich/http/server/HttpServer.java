@@ -4,29 +4,33 @@ import com.hohich.http.messages.*;
 
 import java.net.*;
 import java.io.*;
+import java.util.logging.*;
 
 public class HttpServer {
-    private final static String CONTENT_PATH = "D:\\Study\\Univer\\3_kurs\\AIPOS\\lab5\\http1-1_server\\hosted_files";
+    private static final String CONTENT_PATH = "D:\\Study\\Univer\\3_kurs\\AIPOS\\lab5\\http1-1_server\\hosted_files";
+    private static final Logger logger = Logger.getLogger(HttpServer.class.getName());
 
     public static void main(String[] args) {
+        loggerConfigure();
+        logger.info("Initializing server...");
         try (ServerSocket server = new ServerSocket(
                 8080, 50, InetAddress.getByName("localhost"))) {
-            //listening
+
+            logger.info("Server listening on port 8080");
             while (true) {
                 try {
                     Socket client = server.accept();
-                    //handling client
                     new Thread(() -> handleClient(client)).start();
-                    System.out.println("Client connected: " + client.getInetAddress().getHostAddress());
+                    logger.info("Client connected:" + client.getInetAddress() + ":" + client.getPort());
                 } catch (IOException e) {
-                    System.out.println("Error accepting connection: " + e.getMessage());
+                    logger.log(Level.SEVERE, "Error while accepting client connection", e);
                 }
             }
 
         } catch (IOException e) {
-            System.out.println("Could not start server: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error while listening on port 8080", e);
         } finally {
-            System.out.println("Server stopped.");
+            logger.info("Shutting down server...");
         }
     }
 
@@ -35,13 +39,13 @@ public class HttpServer {
              InputStream in = cs.getInputStream();
              OutputStream out = cs.getOutputStream()) {
             // client request handling
-            System.out.println("Handling client: " + cs.getInetAddress());
+            logger.info("Handling client " + cs.getInetAddress() + ":" + cs.getPort());
 
             byte[] buf = new byte[1024 * 64];
             int bytesRead = in.read(buf);
 
             if(bytesRead == -1){
-                System.out.println("No data read");
+                logger.warning("No data read");
                 return;
             }
 
@@ -50,12 +54,18 @@ public class HttpServer {
 
             switch (req.getMethod()) {
                 case "GET":
+                    logger.finer("Handling GET request for " + req.getUri());
+                    logger.finest("Client request: " + req.getRequest());
                     handleGetRequest(req, out);
                     break;
                 case "POST":
+                    logger.finer("Handling POST request");
+                    logger.finest("Client request: " + req.getRequest());
                     handlePostRequest(req, out);
                     break;
                 case "OPTIONS":
+                    logger.finer("Handling POST request");
+                    logger.finest("Client request: " + req.getRequest());
                     handleOptionsRequest(out);
                     break;
                 default:
@@ -68,21 +78,24 @@ public class HttpServer {
                             "</html>");
                     out.write(resp.getResponse().getBytes());
                     out.flush();
+                    logger.warning("Unsupported HTTP method: " + req.getMethod());
+                    logger.finest("Server response " + resp.getResponse());
                     break;
             }
 
         } catch (IOException e) {
-            System.out.println("Error handling client: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error while handling client connection: ", e);
         }
     }
 
     private static void handleGetRequest(HttpRequest req,
                                          OutputStream out) throws IOException {
-        System.out.println("handling GET");
+
         String uriPath = parseUriToPath(req.getUri());
         File file = new File(CONTENT_PATH + uriPath);
 
         if (!file.exists()) {
+            logger.warning("File does not exist: " + file.getAbsolutePath());
             HttpResponse content_access_err = new HttpResponse(404, "Not Found",
                     "<html>\n" +
                             "<head><title>404 Not Found</title></head>\n" +
@@ -95,6 +108,7 @@ public class HttpServer {
             content_access_err.addHeader("Content-Length", String.valueOf(
                     content_access_err.getBody().length()));
 
+            logger.finest("Server response: " + content_access_err.getResponse());
             out.write(content_access_err.getResponse().getBytes());
             out.flush();
             return;
@@ -105,9 +119,9 @@ public class HttpServer {
         HttpResponse response = new HttpResponse(200, "OK", "");
         response.addHeader("Content-Type", contentType);
         response.addHeader("Content-Length", String.valueOf(file.length()));
-
         out.write(response.getResponse().getBytes());
         out.flush();
+        logger.finest("Server response: " + response.getResponse());
 
         //send request body
         try(FileInputStream fis = new FileInputStream(file)) {
@@ -118,7 +132,7 @@ public class HttpServer {
             }
             out.flush();
         } catch(IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+
             HttpResponse inErrResponse = new HttpResponse(500, "Internal Server Error",
                     "<html>\n" +
                     "<head><title>500 Internal Server Error</title></head>\n" +
@@ -130,13 +144,14 @@ public class HttpServer {
 
             out.write(inErrResponse.getResponse().getBytes());
             out.flush();
+            logger.log(Level.SEVERE, "Error while reading file: " + file.getAbsolutePath(), e);
+            logger.finest("Server response: " + inErrResponse.getResponse());
         }
     }
 
     private static void handlePostRequest(HttpRequest req, OutputStream out) throws IOException {
-        System.out.println("handling POST");
+
         String postedContent = req.getBody();
-        System.out.println("Received posted content: " + postedContent);
 
         String respBody = "{\"message\": \"Data received\"}";
         HttpResponse resp = new HttpResponse(200, "OK", respBody);
@@ -144,17 +159,19 @@ public class HttpServer {
         resp.addHeader("Content-Length", String.valueOf(respBody.length()));
         out.write(resp.getResponse().getBytes());
         out.flush();
+        logger.finest("Server response: " + resp.getResponse());
     }
 
     private static void handleOptionsRequest(
             OutputStream out) throws IOException {
-        System.out.println("handling OPTIONS");
+
         HttpResponse optionsResponse = new HttpResponse(200, "OK", "");
         optionsResponse.addHeader("Allow", "GET, POST, OPTIONS");
         optionsResponse.addHeader("Content-Length", "0");
 
         out.write(optionsResponse.getResponse().getBytes());
         out.flush();
+        logger.finest("Server response: " + optionsResponse.getResponse());
     }
 
     private static String parseUriToPath(String uri) {
@@ -172,6 +189,27 @@ public class HttpServer {
         if (uriPath.endsWith(".png")) return "image/png";
         if (uriPath.endsWith(".svg")) return "image/svg+xml";
         return "application/octet-stream";
+    }
+
+
+    private static void loggerConfigure(){
+        try{
+            logger.setLevel(Level.ALL);
+
+            ConsoleHandler consoleHandler = new ConsoleHandler();
+            consoleHandler.setLevel(Level.INFO);
+            consoleHandler.setFormatter(new SimpleFormatter());
+
+            FileHandler fileHandler = new FileHandler("app.log", true);
+            fileHandler.setLevel(Level.FINEST);
+            fileHandler.setFormatter(new SimpleFormatter());
+
+            logger.addHandler(consoleHandler);
+            logger.addHandler(fileHandler);
+        } catch(IOException e){
+            logger.log(Level.SEVERE, "Error initializing logger", e);
+        }
+
     }
 
 }
