@@ -153,7 +153,7 @@ public class HttpServer {
 
         String postedContent = req.getBody();
 
-        String respBody = "{\"message\": \"Data received\"}";
+        String respBody = "{\"message\": \"Data received\"} \n" + postedContent;
         HttpResponse resp = new HttpResponse(200, "OK", respBody);
         resp.addHeader("Content-Type", "text/html");
         resp.addHeader("Content-Length", String.valueOf(respBody.length()));

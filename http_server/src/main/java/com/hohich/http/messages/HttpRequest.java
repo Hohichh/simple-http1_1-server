@@ -6,7 +6,7 @@ import java.util.Map;
 public class HttpRequest {
     private String method;
     private String uri;
-    private Map<String, String> headers;
+    private final Map<String, String> headers;
     private String body;
 
     public HttpRequest(String request){
@@ -34,16 +34,17 @@ public class HttpRequest {
             }
             if(headersEnd){
                 bodyBuilder.append(lines[i]);
+            } else {
+                String headerName = lines[i].split(": ")[0];
+                String headerValue = lines[i].split(": ")[1];
+                headers.put(headerName, headerValue);
             }
-            String headerName = lines[i].split(": ")[0];
-            String headerValue = lines[i].split(": ")[1];
-            headers.put(headerName, headerValue);
         }
         //body parsing
         body = bodyBuilder.toString().trim();
     }
 
-    public String getResponse() {
+    public String getRequest() {
         StringBuilder response = new StringBuilder();
         response.append(method).append(" ").append(uri).append(" HTTP/1.1\r\n");
 
