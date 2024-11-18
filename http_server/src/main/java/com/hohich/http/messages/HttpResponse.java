@@ -1,14 +1,17 @@
 package com.hohich.http.messages;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class HttpResponse {
     private int code;
     private String status;
-    private String body;
-    private Map<String, String> headers;
+    private byte[] body;
+    private final Map<String, String> headers;
 
-    public HttpResponse(int code, String status, String body) {
+    public HttpResponse(int code, String status, byte[] body) {
         this.code = code;
         this.status = status;
         this.body = body;
@@ -19,23 +22,28 @@ public class HttpResponse {
         headers.put(key, value);
     }
 
-    public String getResponse() {
-        StringBuilder response = new StringBuilder();
-        response.append("HTTP/1.1 ").append(code).append(" ").append(status).append("\r\n")
-                .append("Content-Type: text/html\r\n");
+    public byte[] getResponse() {
+        ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
+        StringBuilder responseHeaders = new StringBuilder();
+        responseHeaders.append("HTTP/1.1 ").append(code).append(" ").append(status).append("\r\n");
 
         for (Map.Entry<String, String> entry : headers.entrySet()) {
-            response.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n");
+            responseHeaders.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n");
         }
+        responseHeaders.append("\r\n");
 
-        response.append("\r\n");
-
-        if (body != null && !body.isEmpty()) {
-            response.append(body);
+        // Преобразуем заголовки в байты
+        try {
+            responseStream.write(responseHeaders.toString().getBytes(StandardCharsets.UTF_8));
+            if (body != null) {
+                responseStream.write(body);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        return response.toString();
+        return responseStream.toByteArray();
     }
+
 
     public int getCode() {
         return code;
@@ -45,7 +53,7 @@ public class HttpResponse {
         return status;
     }
 
-    public String getBody() {
+    public byte[] getBody() {
         return body;
     }
 

@@ -7,6 +7,7 @@ public class HttpRequest {
     private String method;
     private String uri;
     private final Map<String, String> headers;
+    //todo пусть зарос в теле тоже содержит бинарные данные
     private String body;
 
     public HttpRequest(String request){
@@ -15,9 +16,9 @@ public class HttpRequest {
     }
 
     private void parse(String request){
-        String[] lines = request.split("\r\n");
+        String[] lines = request.split("\r?\n");
         //start line parsing to get method and uri to resourse
-        String startLine = request.substring(0, request.indexOf("\r\n"));
+        String startLine = lines[0];
         String[] tokens = startLine.split(" ");
         if(tokens.length == 3){
             method = tokens[0];

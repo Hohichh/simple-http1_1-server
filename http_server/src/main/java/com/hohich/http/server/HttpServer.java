@@ -11,6 +11,7 @@ public class HttpServer {
     private static final Logger logger = Logger.getLogger(HttpServer.class.getName());
 
     public static void main(String[] args) {
+
         loggerConfigure();
         logger.info("Initializing server...");
         try (ServerSocket server = new ServerSocket(
@@ -41,7 +42,7 @@ public class HttpServer {
             // client request handling
             logger.info("Handling client " + cs.getInetAddress() + ":" + cs.getPort());
 
-            byte[] buf = new byte[1024 * 64];
+            byte[] buf = new byte[1024 * 1024];
             int bytesRead = in.read(buf);
 
             if(bytesRead == -1){
@@ -69,17 +70,17 @@ public class HttpServer {
                     handleOptionsRequest(out);
                     break;
                 default:
-                    HttpResponse resp = new HttpResponse(405, "Method Not Allowed","<html>\n" +
+                    HttpResponse resp = new HttpResponse(405, "Method Not Allowed",("<html>\n" +
                             "<head><title>405 Method Not Allowed</title></head>\n" +
                             "<body>\n" +
                             "<h1>405 Method Not Allowed</h1>\n" +
                             "<p>The request method is not allowed for the specified resource.</p>\n" +
                             "</body>\n" +
-                            "</html>");
-                    out.write(resp.getResponse().getBytes());
+                            "</html>").getBytes());
+                    out.write(resp.getResponse());
                     out.flush();
                     logger.warning("Unsupported HTTP method: " + req.getMethod());
-                    logger.finest("Server response " + resp.getResponse());
+                    logger.finest("Server response " + new String(resp.getResponse()));
                     break;
             }
 
@@ -97,81 +98,70 @@ public class HttpServer {
         if (!file.exists()) {
             logger.warning("File does not exist: " + file.getAbsolutePath());
             HttpResponse content_access_err = new HttpResponse(404, "Not Found",
-                    "<html>\n" +
+                    ("<html>\n" +
                             "<head><title>404 Not Found</title></head>\n" +
                             "<body>\n" +
                             "<h1>404 Not Found</h1>\n" +
                             "<p>The requested file was not found on this server.</p>\n" +
                             "</body>\n" +
-                            "</html>");
+                            "</html>").getBytes());
             content_access_err.addHeader("Content-Type", "text/html");
             content_access_err.addHeader("Content-Length", String.valueOf(
-                    content_access_err.getBody().length()));
+                    content_access_err.getBody().length));
 
-            logger.finest("Server response: " + content_access_err.getResponse());
-            out.write(content_access_err.getResponse().getBytes());
+            logger.finest("Server response: " + new String(content_access_err.getBody()));
+            out.write(content_access_err.getResponse());
             out.flush();
             return;
         }
-        //define mime-type
-        String contentType = defineContentType(uriPath);
 
-        HttpResponse response = new HttpResponse(200, "OK", "");
-        response.addHeader("Content-Type", contentType);
-        response.addHeader("Content-Length", String.valueOf(file.length()));
-        out.write(response.getResponse().getBytes());
-        out.flush();
-        logger.finest("Server response: " + response.getResponse());
-
-        //send request body
+        String responseBody = "";
         try(FileInputStream fis = new FileInputStream(file)) {
-            byte[] buf = new byte[8192];
+            byte[] buf = new byte[1024 * 1024]; // Буфер для чтения данных
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             int bytesRead;
-            while(-1 != (bytesRead = fis.read(buf))) {
-                out.write(buf, 0, bytesRead);
+
+            while ((bytesRead = fis.read(buf)) != -1) {
+                byteArrayOutputStream.write(buf, 0, bytesRead); // Записываем в поток только прочитанные байты
             }
+
+            byte[] fileBytes = byteArrayOutputStream.toByteArray();
+            //define mime-type
+            String contentType = defineContentType(uriPath);
+            HttpResponse response = new HttpResponse(200, "OK", fileBytes);
+            response.addHeader("Content-Type", contentType);
+            response.addHeader("Content-Length", String.valueOf(file.length()));
+            out.write(response.getResponse());
             out.flush();
+            logger.finest("Server response: " + new String(response.getResponse()));
         } catch(IOException e) {
-
-            HttpResponse inErrResponse = new HttpResponse(500, "Internal Server Error",
-                    "<html>\n" +
-                    "<head><title>500 Internal Server Error</title></head>\n" +
-                    "<body>\n" +
-                    "<h1>500 Internal Server Error</h1>\n" +
-                    "<p>Unable to get content</p>\n" +
-                    "</body>\n" +
-                    "</html>");
-
-            out.write(inErrResponse.getResponse().getBytes());
-            out.flush();
             logger.log(Level.SEVERE, "Error while reading file: " + file.getAbsolutePath(), e);
-            logger.finest("Server response: " + inErrResponse.getResponse());
+            internalServerError(out);
         }
     }
 
     private static void handlePostRequest(HttpRequest req, OutputStream out) throws IOException {
+        //todo обработка пост с бинарными данными
+        String respBody = req.getBody();
 
-        String postedContent = req.getBody();
-
-        String respBody = "{\"message\": \"Data received\"} \n" + postedContent;
-        HttpResponse resp = new HttpResponse(200, "OK", respBody);
+        HttpResponse resp = new HttpResponse(200, "OK", respBody.getBytes());
         resp.addHeader("Content-Type", "text/html");
         resp.addHeader("Content-Length", String.valueOf(respBody.length()));
-        out.write(resp.getResponse().getBytes());
+        out.write(resp.getResponse());
         out.flush();
-        logger.finest("Server response: " + resp.getResponse());
+        logger.finest("Server response: " + new String(resp.getResponse()));
     }
 
     private static void handleOptionsRequest(
             OutputStream out) throws IOException {
 
-        HttpResponse optionsResponse = new HttpResponse(200, "OK", "");
+        HttpResponse optionsResponse = new HttpResponse(200, "OK", new byte[]{});
         optionsResponse.addHeader("Allow", "GET, POST, OPTIONS");
         optionsResponse.addHeader("Content-Length", "0");
 
-        out.write(optionsResponse.getResponse().getBytes());
+        out.write(optionsResponse.getResponse());
         out.flush();
-        logger.finest("Server response: " + optionsResponse.getResponse());
+        logger.finest("Server response: " + new String(optionsResponse.getResponse()));
     }
 
     private static String parseUriToPath(String uri) {
@@ -194,6 +184,7 @@ public class HttpServer {
 
     private static void loggerConfigure(){
         try{
+
             logger.setLevel(Level.ALL);
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
@@ -204,12 +195,29 @@ public class HttpServer {
             fileHandler.setLevel(Level.FINEST);
             fileHandler.setFormatter(new SimpleFormatter());
 
+            logger.setUseParentHandlers(false);
+
             logger.addHandler(consoleHandler);
             logger.addHandler(fileHandler);
         } catch(IOException e){
             logger.log(Level.SEVERE, "Error initializing logger", e);
         }
 
+    }
+
+    private static void internalServerError(OutputStream out) throws IOException {
+        HttpResponse inErrResponse = new HttpResponse(500, "Internal Server Error",
+                ("<html>\n" +
+                        "<head><title>500 Internal Server Error</title></head>\n" +
+                        "<body>\n" +
+                        "<h1>500 Internal Server Error</h1>\n" +
+                        "<p>Unable to get content</p>\n" +
+                        "</body>\n" +
+                        "</html>").getBytes());
+
+        out.write(inErrResponse.getResponse());
+        out.flush();
+        logger.finest("Server response: " + inErrResponse.getResponse());
     }
 
 }
