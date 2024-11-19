@@ -7,7 +7,6 @@ public class HttpRequest {
     private String method;
     private String uri;
     private final Map<String, String> headers;
-    //todo пусть зарос в теле тоже содержит бинарные данные
     private String body;
 
     public HttpRequest(String request){

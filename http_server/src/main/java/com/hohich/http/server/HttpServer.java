@@ -141,7 +141,6 @@ public class HttpServer {
     }
 
     private static void handlePostRequest(HttpRequest req, OutputStream out) throws IOException {
-        //todo обработка пост с бинарными данными
         String respBody = req.getBody();
 
         HttpResponse resp = new HttpResponse(200, "OK", respBody.getBytes());
@@ -178,6 +177,8 @@ public class HttpServer {
         if (uriPath.endsWith(".js")) return "application/javascript";
         if (uriPath.endsWith(".png")) return "image/png";
         if (uriPath.endsWith(".svg")) return "image/svg+xml";
+        if (uriPath.endsWith(".gif")) return "image/gif";
+        if (uriPath.endsWith(".jpg")) return "image/jpg";
         return "application/octet-stream";
     }
 
@@ -217,7 +218,7 @@ public class HttpServer {
 
         out.write(inErrResponse.getResponse());
         out.flush();
-        logger.finest("Server response: " + inErrResponse.getResponse());
+        logger.finest("Server response: " + new String(inErrResponse.getResponse()));
     }
 
 }
