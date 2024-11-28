@@ -1,0 +1,381 @@
+Nov 23, 2024 11:34:57 AM com.hohich.http.server.HttpServer main
+INFO: Initializing server...
+Nov 23, 2024 11:34:57 AM com.hohich.http.server.HttpServer main
+INFO: Server listening on port 8080
+Nov 23, 2024 11:35:06 AM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:52977
+Nov 23, 2024 11:35:06 AM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:52977
+Nov 23, 2024 11:35:06 AM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for http://localhost:8080/pics/
+Nov 23, 2024 11:35:06 AM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET http://localhost:8080/pics/ HTTP/1.1
+
+
+Nov 23, 2024 11:35:06 AM com.hohich.http.server.HttpServer handleGetRequest
+WARNING: File does not exist: D:\Study\Univer\3_kurs\AIPOS\lab5\http1-1_server\hosted_files\pics
+Nov 23, 2024 11:35:06 AM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: <html>
+<head><title>404 Not Found</title></head>
+<body>
+<h1>404 Not Found</h1>
+<p>The requested file was not found on this server.</p>
+</body>
+</html>
+Nov 23, 2024 11:35:32 AM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:52980
+Nov 23, 2024 11:35:32 AM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:52980
+Nov 23, 2024 11:35:32 AM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for http://localhost:8080/pics
+Nov 23, 2024 11:35:32 AM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET http://localhost:8080/pics HTTP/1.1
+
+
+Nov 23, 2024 11:35:32 AM com.hohich.http.server.HttpServer handleGetRequest
+WARNING: File does not exist: D:\Study\Univer\3_kurs\AIPOS\lab5\http1-1_server\hosted_files\pics
+Nov 23, 2024 11:35:32 AM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: <html>
+<head><title>404 Not Found</title></head>
+<body>
+<h1>404 Not Found</h1>
+<p>The requested file was not found on this server.</p>
+</body>
+</html>
+Nov 23, 2024 11:37:03 AM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:52985
+Nov 23, 2024 11:37:03 AM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:52985
+Nov 23, 2024 11:37:03 AM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for http://localhost:8080/pics
+Nov 23, 2024 11:37:03 AM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET http://localhost:8080/pics HTTP/1.1
+
+
+Nov 23, 2024 11:37:03 AM com.hohich.http.server.HttpServer handleGetRequest
+WARNING: File does not exist: D:\Study\Univer\3_kurs\AIPOS\lab5\http1-1_server\hosted_files\pics
+Nov 23, 2024 11:37:03 AM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: <html>
+<head><title>404 Not Found</title></head>
+<body>
+<h1>404 Not Found</h1>
+<p>The requested file was not found on this server.</p>
+</body>
+</html>
+Nov 23, 2024 11:37:38 AM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:52986
+Nov 23, 2024 11:37:38 AM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:52986
+Nov 23, 2024 11:37:38 AM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for http://localhost:8080/index.html
+Nov 23, 2024 11:37:38 AM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET http://localhost:8080/index.html HTTP/1.1
+
+
+Nov 23, 2024 11:37:38 AM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 238
+Content-Type: text/html
+
+
+Nov 23, 2024 11:38:36 AM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:53003
+Nov 23, 2024 11:38:36 AM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:53003
+Nov 23, 2024 11:38:36 AM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for http://localhost:8080/pics/a2.png
+Nov 23, 2024 11:38:36 AM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET http://localhost:8080/pics/a2.png HTTP/1.1
+
+
+Nov 23, 2024 11:38:36 AM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 113270
+Content-Type: image/png
+
+
+Nov 23, 2024 12:50:31 PM com.hohich.http.server.HttpServer main
+INFO: Initializing server...
+Nov 23, 2024 12:50:31 PM com.hohich.http.server.HttpServer main
+INFO: Server listening on port 8080
+Nov 23, 2024 12:53:42 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:56138
+Nov 23, 2024 12:53:42 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:56138
+Nov 23, 2024 12:53:42 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling POST request
+Nov 23, 2024 12:53:42 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: OPTIONS /index.html HTTP/1.1
+Host: localhost:8080
+Content-Length: 0
+
+
+Nov 23, 2024 12:53:42 PM com.hohich.http.server.HttpServer handleOptionsRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 0
+Allow: GET, POST, OPTIONS
+
+
+Nov 23, 2024 12:57:14 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:56213
+Nov 23, 2024 12:57:14 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:56213
+Nov 23, 2024 12:57:14 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for /index.html
+Nov 23, 2024 12:57:14 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET /index.html HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Fetch-Site: none
+Sec-Fetch-Dest: document
+Host: localhost:8080
+Purpose: prefetch
+Accept-Encoding: gzip, deflate, br, zstd
+Sec-Fetch-Mode: navigate
+sec-ch-ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+sec-ch-ua-platform: "Windows"
+Sec-Fetch-User: ?1
+Accept-Language: ru,be;q=0.9,ru-RU;q=0.8,en;q=0.7
+Sec-Purpose: prefetch;prerender
+
+
+Nov 23, 2024 12:57:14 PM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 238
+Content-Type: text/html
+
+
+Nov 23, 2024 12:57:14 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:56214
+Nov 23, 2024 12:57:14 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:56214
+Nov 23, 2024 12:57:15 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for /favicon.ico
+Nov 23, 2024 12:57:15 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET /favicon.ico HTTP/1.1
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Referer: http://localhost:8080/index.html
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Dest: image
+Host: localhost:8080
+Accept-Encoding: gzip, deflate, br, zstd
+Sec-Fetch-Mode: no-cors
+sec-ch-ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Accept-Language: ru,be;q=0.9,ru-RU;q=0.8,en;q=0.7
+
+
+Nov 23, 2024 12:57:15 PM com.hohich.http.server.HttpServer handleGetRequest
+WARNING: File does not exist: D:\Study\Univer\3_kurs\AIPOS\lab5\http1-1_server\hosted_files\favicon.ico
+Nov 23, 2024 12:57:15 PM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: <html>
+<head><title>404 Not Found</title></head>
+<body>
+<h1>404 Not Found</h1>
+<p>The requested file was not found on this server.</p>
+</body>
+</html>
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:56218
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:56218
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for /new.html
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET /new.html HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Fetch-Site: none
+Sec-Fetch-Dest: document
+Host: localhost:8080
+Purpose: prefetch
+Accept-Encoding: gzip, deflate, br, zstd
+Sec-Fetch-Mode: navigate
+sec-ch-ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+sec-ch-ua-platform: "Windows"
+Sec-Fetch-User: ?1
+Accept-Language: ru,be;q=0.9,ru-RU;q=0.8,en;q=0.7
+Sec-Purpose: prefetch;prerender
+
+
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 470
+Content-Type: text/html
+
+
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:56221
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:56221
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for /style.css
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET /style.css HTTP/1.1
+Accept: text/css,*/*;q=0.1
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Referer: http://localhost:8080/new.html
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Dest: style
+Host: localhost:8080
+Purpose: prefetch
+Accept-Encoding: gzip, deflate, br, zstd
+Sec-Fetch-Mode: no-cors
+sec-ch-ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Accept-Language: ru,be;q=0.9,ru-RU;q=0.8,en;q=0.7
+Sec-Purpose: prefetch;prerender
+
+
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 1012
+Content-Type: text/css
+
+
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:56222
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:56222
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:56223
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:56223
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for /main.js
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET /main.js HTTP/1.1
+Accept: */*
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Referer: http://localhost:8080/new.html
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Dest: script
+Host: localhost:8080
+Purpose: prefetch
+Accept-Encoding: gzip, deflate, br, zstd
+Sec-Fetch-Mode: no-cors
+sec-ch-ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Accept-Language: ru,be;q=0.9,ru-RU;q=0.8,en;q=0.7
+Sec-Purpose: prefetch;prerender
+
+
+Nov 23, 2024 12:57:24 PM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 743
+Content-Type: application/javascript
+
+
+Nov 23, 2024 12:57:48 PM com.hohich.http.server.HttpServer handleClient
+WARNING: No data read
+Nov 27, 2024 1:19:20 PM com.hohich.http.server.HttpServer main
+INFO: Initializing server...
+Nov 27, 2024 1:19:20 PM com.hohich.http.server.HttpServer main
+INFO: Server listening on port 8080
+Nov 27, 2024 2:03:39 PM com.hohich.http.server.HttpServer main
+INFO: Initializing server...
+Nov 27, 2024 2:03:39 PM com.hohich.http.server.HttpServer main
+INFO: Server listening on port 8080
+Nov 27, 2024 2:03:46 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:43654
+Nov 27, 2024 2:03:46 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:43654
+Nov 27, 2024 2:03:46 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for http://localhost:8080/new.html
+Nov 27, 2024 2:03:46 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET http://localhost:8080/new.html HTTP/1.1
+Accept: */*
+Host:: LocalHost
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+Host: localhost:8080
+
+
+Nov 27, 2024 2:03:46 PM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 470
+Content-Type: text/html
+
+
+Nov 27, 2024 2:08:33 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:43700
+Nov 27, 2024 2:08:33 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:43700
+Nov 27, 2024 2:08:33 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling POST request
+Nov 27, 2024 2:08:33 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: OPTIONS  HTTP/1.1
+Host:: LocalHost
+
+
+Nov 27, 2024 2:08:33 PM com.hohich.http.server.HttpServer handleOptionsRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 0
+Allow: GET, POST, OPTIONS
+
+
+Nov 27, 2024 2:18:27 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:43778
+Nov 27, 2024 2:18:27 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:43778
+Nov 27, 2024 2:18:27 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling POST request
+Nov 27, 2024 2:18:27 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: POST content.html HTTP/1.1
+Host: LocalHost
+
+<h1>Content</h1>
+Nov 27, 2024 2:18:27 PM com.hohich.http.server.HttpServer handlePostRequest
+FINEST: Server response: HTTP/1.1 201 Created
+Host: Localhost:8080
+Content-Length: 16
+Content-Type: text/html
+
+
+Nov 27, 2024 2:26:02 PM com.hohich.http.server.HttpServer main
+INFO: Initializing server...
+Nov 27, 2024 2:26:02 PM com.hohich.http.server.HttpServer main
+INFO: Server listening on port 8080
+Nov 27, 2024 2:55:13 PM com.hohich.http.server.HttpServer handleClient
+INFO: Handling client /127.0.0.1:44225
+Nov 27, 2024 2:55:13 PM com.hohich.http.server.HttpServer main
+INFO: Client connected:/127.0.0.1:44225
+Nov 27, 2024 2:55:13 PM com.hohich.http.server.HttpServer handleClient
+FINER: Handling GET request for http://localhost:8080/new.html
+Nov 27, 2024 2:55:13 PM com.hohich.http.server.HttpServer handleClient
+FINEST: Client request: GET http://localhost:8080/new.html HTTP/1.1
+Accept: */*
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+Host: localhost:8080
+
+
+Nov 27, 2024 2:55:13 PM com.hohich.http.server.HttpServer handleGetRequest
+FINEST: Server response: HTTP/1.1 200 OK
+Host: Localhost:8080
+Content-Length: 470
+Content-Type: text/html
+
+
