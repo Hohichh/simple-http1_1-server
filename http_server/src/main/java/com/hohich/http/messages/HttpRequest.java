@@ -9,30 +9,29 @@ public class HttpRequest {
     private final Map<String, String> headers;
     private String body;
 
-    public HttpRequest(String request){
-        headers = new HashMap<String, String>();
+    public HttpRequest(String request) {
+        headers = new HashMap<>();
         parse(request);
     }
 
-    private void parse(String request){
+    private void parse(String request) {
         String[] lines = request.split("\r?\n");
-        //start line parsing to get method and uri to resourse
         String startLine = lines[0];
         String[] tokens = startLine.split(" ");
-        if(tokens.length == 3){
+        if (tokens.length == 3) {
             method = tokens[0];
             uri = tokens[1];
-        } else{
+        } else {
             throw new IllegalArgumentException("Invalid request line");
         }
         //headers parsing
         StringBuilder bodyBuilder = new StringBuilder();
         boolean headersEnd = false;
-        for(int i = 1; i < lines.length; i++){
-            if(lines[i].isEmpty()){
+        for (int i = 1; i < lines.length; i++) {
+            if (lines[i].isEmpty()) {
                 headersEnd = true;
             }
-            if(headersEnd){
+            if (headersEnd) {
                 bodyBuilder.append(lines[i]);
             } else {
                 String headerName = lines[i].split(": ")[0];
@@ -76,4 +75,5 @@ public class HttpRequest {
     public String getBody() {
         return body;
     }
+
 }
